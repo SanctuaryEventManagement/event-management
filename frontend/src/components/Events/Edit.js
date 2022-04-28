@@ -6,10 +6,10 @@ import { TextField, Button } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
 
 const Edit = () => {
-  const [bunglowPlace, setBunglowPlace] = useState("");
-  const [bPrice, setBPrice] = useState("");
-  const [bPplcount, setBPplcount] = useState("");
-  const [bPackage, setBPackage] = useState("");
+  const [eventPlace, setEventPlace] = useState("");
+  const [ePrice, setEPrice] = useState("");
+  const [ePplcount, setEPplcount] = useState("");
+  const [ePackage, setEPackage] = useState("");
   const [loading, setLoading] = useState(false); //additional
 
   const { id } = useParams();
@@ -17,13 +17,13 @@ const Edit = () => {
   useEffect(() => {
     //component mount
     const getData = async () => {
-      await fetch(`/bunglow/get/${id}`)
+      await fetch(`/event/get/${id}`)
         .then((res) => res.json())
         .then((json) => {
-          setBunglowPlace(json.bunglowPlace);
-          setBPrice(json.bPrice);
-          setBPplcount(json.bPplcount);
-          setBPackage(json.bPackage);
+          setEventPlace(json.eventPlace);
+          setEPrice(json.ePrice);
+          setEPplcount(json.ePplcount);
+          setEPackage(json.ePackage);
         })
         .catch((err) => alert(err));
     };
@@ -46,12 +46,12 @@ const Edit = () => {
     try {
       await axios.put(
         //use axios API
-        `/bunglow/update/${id}`,
+        `/event/update/${id}`,
         {
-          bunglowPlace,
-          bPrice,
-          bPplcount,
-          bPackage,
+          eventPlace,
+          ePrice,
+          ePplcount,
+          ePackage,
         },
         config
       );
@@ -60,18 +60,18 @@ const Edit = () => {
         //set a time out
         setLoading(false);
         alert("Success! Updated 😘");
-        setBunglowPlace("");
-        setBPrice("");
-        setBPplcount("");
-        setBPackage("");
+        setEventPlace("");
+        setEPrice("");
+        setEPplcount("");
+        setEPackage("");
         window.location.reload();
       }, 5000); //5seconds timeout
     } catch (error) {
       alert(error);
-      setBunglowPlace("");
-      setBPrice("");
-      setBPplcount("");
-      setBPackage("");
+      setEventPlace("");
+      setEPrice("");
+      setEPplcount("");
+      setEPackage("");
       setLoading(false);
     }
   };
@@ -90,7 +90,7 @@ const Edit = () => {
         >
           <div className=" inline-flex  mx-auto">
             <div className=" mt-2 -translate-x-8">
-              <NavLink to="/bunglowdisplay">
+              <NavLink to="/eventdisplay">
                 <Button variant="contained" color="primary">
                   Back
                 </Button>
@@ -112,8 +112,8 @@ const Edit = () => {
                 label="Event Name"
                 variant="outlined"
                 type="text"
-                value={bunglowPlace}
-                onChange={(e) => setBunglowPlace(e.target.value)}
+                value={eventPlace}
+                onChange={(e) => setEventPlace(e.target.value)}
                 required
               />
             </div>
@@ -127,8 +127,8 @@ const Edit = () => {
                 label="Event Price"
                 variant="outlined"
                 type="number"
-                value={bPrice}
-                onChange={(e) => setBPrice(e.target.value)}
+                value={ePrice}
+                onChange={(e) => setEPrice(e.target.value)}
                 required
               />
             </div>
@@ -142,8 +142,8 @@ const Edit = () => {
                 label="Event Hall No"
                 variant="outlined"
                 type="number"
-                value={bPplcount}
-                onChange={(e) => setBPplcount(e.target.value)}
+                value={ePplcount}
+                onChange={(e) => setEPplcount(e.target.value)}
                 required
               />
             </div>
@@ -157,8 +157,8 @@ const Edit = () => {
                 label="Package Name"
                 variant="outlined"
                 type="text"
-                value={bPackage}
-                onChange={(e) => setBPackage(e.target.value)}
+                value={ePackage}
+                onChange={(e) => setEPackage(e.target.value)}
                 required
               />
             </div>

@@ -3,10 +3,22 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import logo from "../assets/logo.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const history = useNavigate();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("dept");
+    localStorage.removeItem("type");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("contact");
+    localStorage.removeItem("address");
+    history("/");
+    window.location.reload();
+  };
 
   return (
     <div>
@@ -16,7 +28,9 @@ const Header = () => {
             <Button variant="contained">Registered Vistors Details</Button>
           </div>
           <div className=" translate-x-96 ml-8 mx-auto">
-            <Button variant="contained">My Account</Button>
+            <Button variant="contained" onClick={() => history("/account")}>
+              My Account
+            </Button>
           </div>
         </div>
         <div className=" mx-96">
@@ -41,12 +55,12 @@ const Header = () => {
               Employee management
             </Button>
           </div>
-          <div onClick={() => history("/bunglow")}>
-          <div className=" px-2">
-            <Button variant="contained" color="success">
-              Event Mnagement
-            </Button>
-          </div>
+          <div onClick={() => history("/event")}>
+            <div className=" px-2">
+              <Button variant="contained" color="success">
+                Event Mnagement
+              </Button>
+            </div>
           </div>
           <div className=" px-2">
             <NavLink to="/fview">
@@ -55,9 +69,14 @@ const Header = () => {
               </Button>
             </NavLink>
           </div>
+          <div className=" px-2 ml-48">
+            <Button variant="contained" color="success" onClick={logoutHandler}>
+              Logout
+            </Button>
+          </div>
         </div>
       </Typography>
-      <br/>
+      <br />
     </div>
   );
 };

@@ -1,24 +1,24 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Bunglow = new Schema({
+const Event = new Schema({
     refNo: {
         type:String,
     },
-    bunglowPlace: {
+    eventPlace: {
         type: String,
     },
-    bPrice: {
+    ePrice: {
         type: Number,
     },
-    bPplcount: {
+    ePplcount: {
         type: Number,
     },
-    bPackage: {
+    ePackage: {
         type: String,
     },
 });
 
-const newBunglow = mongoose.model("bunglow", Bunglow); //create database collection
+const newEvent = mongoose.model("event", Event); //create database collection
 
-module.exports = newBunglow;
+module.exports = newEvent;

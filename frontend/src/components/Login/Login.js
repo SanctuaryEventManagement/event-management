@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+import Logo from "../../assets/logo.png";
 
 const RandomImage = lazy(() => import("./RandomImage")); //lazy loading component import: dynamic import
 
@@ -24,16 +25,62 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
+  const [available, setAvailable] = useState("");
 
   const history = useNavigate();
-  
-  const loginCheck = () => {
-      if(email === "event@admin.com" && password === "event123") {
-          history(`/bunglow`);
-      } else{
-        alert("Invalid Credentials");
-      }
-  }
+
+  const loginCheck = async (e) => {
+    //handler method for login
+    e.preventDefault();
+
+    setLoading(true);
+    setIsError(false); //additional
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/login",
+        { email, password },
+        config
+      );
+
+      localStorage.setItem("authToken", data.token); //set the browser caching or local storage for globally accessed anywhere in the application
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("type", data?.type);
+      localStorage.setItem("dept", data?.dept);
+
+      console.log(data.type);
+      console.log(data.dept);
+
+      setTimeout(() => {
+        //settimeout for 5s seconds
+        if (data.type === "admin" && data.dept === "EM") {
+          history(`/adminhome`);
+        } else {
+          history(`/home`);
+        }
+        setLoading(false);
+        window.location.reload();
+      }, 5000);
+    } catch (error) {
+      setError(error.response.data.error);
+      setAvailable(error.response.data.available);
+      setLoading(false);
+      setIsError(true);
+      setTimeout(() => {
+        setError("");
+        setAvailable("");
+      }, 5000); //5s
+    }
+  };
 
   //   const history = useNavigate();
 
@@ -148,10 +195,11 @@ const Login = () => {
                 alignItems: "center",
               }}
             >
+              <img src={Logo} style={{ width: "50%" }} />
               <Button component="h1" variant="h5">
                 Sign in
               </Button>
-              {/* <p>
+              <p>
                 {error && (
                   <span className="badge bg-warning" style={{ color: "white" }}>
                     {error}
@@ -162,7 +210,7 @@ const Login = () => {
                     {available}
                   </span>
                 )}
-              </p> */}
+              </p>
               <TextField
                 margin="normal"
                 required

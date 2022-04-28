@@ -30,5 +30,8 @@ app.listen(PORT, () => {
 
 app.use("/logistics", require("./BACKEND/routes/logistics"));
 app.use("/feedback", require("./BACKEND/routes/feedback"));
-app.use("/bunglow", require("./BACKEND/routes/bunglow"));
+app.use("/event", require("./BACKEND/routes/event"));
 app.use("/safari", require("./BACKEND/routes/safarijeep"));
+
+//login and register
+app.use("/api/auth", require("./BACKEND/routes/auth"));

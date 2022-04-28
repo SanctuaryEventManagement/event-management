@@ -31,7 +31,7 @@ export default function BunglowandSafari() {
                           class="p-4 lg:w-3/4 cursor-pointer bg-red-600"
                           data-aos="fade-right"
                         >
-                          <div onClick={() => navigate("/bunglowdisplay")}>
+                          <div onClick={() => navigate("/eventdisplay")}>
                             <div class=" bg-gray-100 bg-opacity-75 px-8 pt-2 pb-16 rounded-lg overflow-hidden text-center relative">
                               <h1 class="title-font top-4 sm:text-2xl text-xl font-medium text-gray-900 mb-3">
                                 <div className="translate-y-8">

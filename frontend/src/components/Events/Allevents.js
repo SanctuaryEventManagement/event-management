@@ -44,7 +44,7 @@ const Allbunglow = () => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/bunglow/")
+        .get("/event/")
         .then((res) => {setData(res?.data); console.log(res)})
         .catch((error) => alert(error));
     })();
@@ -53,16 +53,16 @@ const Allbunglow = () => {
   const deleteData = async (id, type) => {
     //method for deleting a data
     if (window.confirm("Do you want to delete !")) {
-      await axios.delete(`/bunglow/delete/${id}`);
+      await axios.delete(`/event/delete/${id}`);
       await axios
-        .get("/bunglow/")
+        .get("/event/")
         .then((res) => setData(res?.data))
         .catch((error) => alert(error));
     }
   };
 
   const filteredData = data.filter(
-    (el) => el?.bunglowPlace.toLowerCase().includes(query) >= 0
+    (el) => el?.eventPlace.toLowerCase().includes(query) >= 0
   );
 
   // console.log(filteredData);
@@ -83,7 +83,7 @@ const Allbunglow = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => navigate("/bunglow")}
+                onClick={() => navigate("/event")}
               >
                 Back
               </Button>
@@ -136,20 +136,20 @@ const Allbunglow = () => {
                           {"B_Ref"+Math.random().toString().substring(0, 10)*100000000}
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                          {value?.bunglowPlace}
+                          {value?.eventPlace}
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                          Rs.{value?.bPrice}
+                          Rs.{value?.ePrice}
                         </StyledTableCell>
                         <StyledTableCell align="right" className="-translate-x-10">
-                          {value?.bPplcount}
+                          {value?.ePplcount}
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                          {value.bPackage}
+                          {value.ePackage}
                         </StyledTableCell>
                         <StyledTableCell align="right">
                           <div className=" pr-6 space-x-4">
-                            <Link to={`/bunglowedit/${value._id}/`}>
+                            <Link to={`/eventedit/${value._id}/`}>
                               <EditIcon className=" border bg-green-600 cursor-pointer" />
                             </Link>
                             <DeleteIcon
@@ -169,7 +169,7 @@ const Allbunglow = () => {
             <Button
               variant="contained"
               color="success"
-              onClick={() => navigate("/bunglowcreate")}
+              onClick={() => navigate("/eventcreate")}
             >
               Add Event
             </Button>

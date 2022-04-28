@@ -11,19 +11,19 @@ import { Button } from "@mui/material";
 const Create = () => {
   const navigate = useNavigate();
 
-  const [bunglowPlace, setBunglowPlace] = useState(undefined);
-  const [bPrice, setBPrice] = useState(undefined);
-  const [bPplcount,setBPplCount] = useState(undefined);
-  const [bPackage, setBPackage] = useState(undefined);
+  const [eventPlace, setEventPlace] = useState(undefined);
+  const [ePrice, setEPrice] = useState(undefined);
+  const [ePplcount, setEPplcount] = useState(undefined);
+  const [ePackage, setEPackage] = useState(undefined);
   const [loading, setLoading] = useState(false); //additional
   const [isError, setIsError] = useState(false);
 
   const isCheck = () => {
     if (
-      bunglowPlace === undefined ||
-      bPrice === undefined ||
-      bPplcount === undefined ||
-      bPackage === undefined
+      eventPlace === undefined ||
+      ePrice === undefined ||
+      ePplcount === undefined ||
+      ePackage === undefined
     )
       toast("Plase fill out the required fields!");
   };
@@ -44,15 +44,15 @@ const Create = () => {
     try {
       //exception handling
       var { data } = await axios.post(
-        "/bunglow/create",
-        { bunglowPlace, bPrice, bPplcount, bPackage },
+        "/event/create",
+        { eventPlace, ePrice, ePplcount, ePackage },
         config
       );
       toast("Success! Added 😘");
-      setBunglowPlace("");
-      setBPrice("");
-      setBPplCount("");
-      setBPackage("");
+      setEventPlace("");
+      setEPrice("");
+      setEPplcount("");
+      setEPackage("");
       setLoading(false);
     } catch (error) {
       toast(`Error! ${error?.response?.data?.error}`);
@@ -79,7 +79,7 @@ const Create = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => navigate("/bunglowdisplay")}
+                onClick={() => navigate("/eventdisplay")}
               >
                 Back
               </Button>
@@ -101,8 +101,8 @@ const Create = () => {
                 placeholder="Event Name"
                 variant="outlined"
                 type="text"
-                value={bunglowPlace}
-                onChange={(e) => setBunglowPlace(e.target.value)}
+                value={eventPlace}
+                onChange={(e) => setEventPlace(e.target.value)}
                 required
               />
             </div>
@@ -117,8 +117,8 @@ const Create = () => {
                 variant="outlined"
                 placeholder="Event Price"
                 type="number"
-                value={bPrice}
-                onChange={(e) => setBPrice(e.target.value)}
+                value={ePrice}
+                onChange={(e) => setEPrice(e.target.value)}
                 required
               />
             </div>
@@ -133,8 +133,8 @@ const Create = () => {
                 placeholder="Event Hall No"
                 variant="outlined"
                 type="number"
-                value={bPplcount}
-                onChange={(e) => setBPplCount(e.target.value)}
+                value={ePplcount}
+                onChange={(e) => setEPplcount(e.target.value)}
                 required
               />
             </div>
@@ -149,8 +149,8 @@ const Create = () => {
                 placeholder="Package Name"
                 variant="outlined"
                 type="text"
-                value={bPackage}
-                onChange={(e) => setBPackage(e.target.value)}
+                value={ePackage}
+                onChange={(e) => setEPackage(e.target.value)}
                 required
               />
             </div>

@@ -1,35 +1,35 @@
 const router = require("express").Router();
-const Bunglow = require("../models/bunglow");
+const Events = require("../models/event");
 
 //route for creating database insertion
 router.route("/create").post(async (req, res) => {
-  const { bunglowPlace, bPackage, refNo  } = req.body;
+  const { eventPlace, ePackage, refNo  } = req.body;
 
-  const bPrice = Number(req.body.bPrice);
+  const ePrice = Number(req.body.ePrice);
 
-  const bPplcount = Number(req.body.bPplcount);
+  const ePplcount = Number(req.body.ePplcount);
 
   // create a new object using database schema
-  const newBunglow = new Bunglow({
+  const newEvents = new Events({
     refNo,
-    bunglowPlace,
-    bPrice,
-    bPplcount,
-    bPackage,
+    eventPlace,
+    ePrice,
+    ePplcount,
+    ePackage,
   });
 
-  const isAvailable = await Bunglow.findOne({
-    bunglowPlace: { $regex: new RegExp(bunglowPlace, "i") },
+  const isAvailable = await Events.findOne({
+    eventPlace: { $regex: new RegExp(eventPlace, "i") },
   });
 
   if (isAvailable) {
     return res.status(401).json({
       success: false,
-      error: "Alredy Exist in the database, Plase Add new bunglow place 😍",
+      error: "Alredy Exist in the database, Plase Add new Event place 😍",
     });
   }
 
-  await newBunglow
+  await newEvents
     .save()
     .then(() => res.status(200).json({ success: true }))
     .catch(
@@ -39,8 +39,8 @@ router.route("/create").post(async (req, res) => {
 
 //route for fetching all the data
 router.route("/").get(async (req, res) => {
-  await Bunglow.find()
-    .then((bunglow) => res.json(bunglow))
+  await Events.find()
+    .then((event) => res.json(event))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 });
 
@@ -48,8 +48,8 @@ router.route("/").get(async (req, res) => {
 router.route("/get/:id").get(async (req, res) => {
   const { id } = req.params;
 
-  await Bunglow.findById(id)
-    .then((bunglow) => res.json(bunglow))
+  await Events.findById(id)
+    .then((event) => res.json(event))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 });
 
@@ -57,7 +57,7 @@ router.route("/get/:id").get(async (req, res) => {
 router.route("/delete/:id").delete(async (req, res) => {
   const { id } = req.params;
 
-  await Bunglow.findByIdAndRemove(id) //find by the document by id and delete
+  await Events.findByIdAndRemove(id) //find by the document by id and delete
     .then(() => res.json({ message: "Successfully Deleted" }))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 });
@@ -66,15 +66,15 @@ router.route("/delete/:id").delete(async (req, res) => {
 router.route("/update/:id").put(async (req, res) => {
   //backend route for updating relavant data and passing back
   const { id } = req.params;
-  const { refNo, bunglowPlace, bPrice, bPplcount, bPackage } = req.body;
+  const { refNo, eventPlace, ePrice, ePplcount, ePackage } = req.body;
 
   //find the document by and update the relavant data
-  await Bunglow.findByIdAndUpdate(id, {
+  await Events.findByIdAndUpdate(id, {
     refNo,
-    bunglowPlace,
-    bPrice,
-    bPplcount,
-    bPackage,
+    eventPlace,
+    ePrice,
+    ePplcount,
+    ePackage,
   })
     .then(() => res.json({ success: true }))
     .catch((error) => res.json({ success: false, error: error }));
