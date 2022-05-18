@@ -133,7 +133,7 @@ const Allbunglow = () => {
                     return (
                       <StyledTableRow key={value?._id}>
                         <StyledTableCell component="th" scope="row">
-                          {"B_Ref"+Math.random().toString().substring(0, 10)*100000000}
+                          {"E_Ref"+Math.random().toString().substring(0, 10)*100000000}
                         </StyledTableCell>
                         <StyledTableCell align="right">
                           {value?.eventPlace}
@@ -174,6 +174,13 @@ const Allbunglow = () => {
               Add Event
             </Button>
           </div>
+          <center>
+            <Link to="/ereport">
+              <Button variant="outlined" style={{ marginTop: 20 }}>
+                Generate Report
+              </Button>
+            </Link>
+          </center>
         </div>
       </div>
     </>

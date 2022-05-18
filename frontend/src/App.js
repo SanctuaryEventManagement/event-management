@@ -23,38 +23,46 @@ import SEdit from "./components/Safari/Edit";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import MyAccount from "./components/MyAccount";
+import EReport from "./components/Events/Report";
 
 const App = () => {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={ <Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="/account" element={[<MyAccount />]} />
 
           {/* Logistics */}
-          <Route path="/adminhome" element={ [<Header />,<AdminHome />] } />
-          <Route path="/create" element={[<Header />,<Create />]} />
-          <Route path="/edit/:id" element={[<Header />,<Edit />]} />
-          <Route path="/inventory" element={[<Header />,<Inventory />]} />
+          <Route path="/adminhome" element={[<Header />, <AdminHome />]} />
+          <Route path="/create" element={[<Header />, <Create />]} />
+          <Route path="/edit/:id" element={[<Header />, <Edit />]} />
+          <Route path="/inventory" element={[<Header />, <Inventory />]} />
 
           {/* Feedback */}
           <Route path="/fcreate" element={[<Fcreate />]} />
-          <Route path="/fview" element={[<Header />,<Allfeedbacks />]} />
-          <Route path="/fedit/:id" element={[<Header />,<Fedit />]} />
-          <Route path="/feedback/get/:id" element={[<Header />,<Viewfeedback />]} />
+          <Route path="/fview" element={[<Header />, <Allfeedbacks />]} />
+          <Route path="/fedit/:id" element={[<Header />, <Fedit />]} />
+          <Route
+            path="/feedback/get/:id"
+            element={[<Header />, <Viewfeedback />]}
+          />
           <Route path="/frview" element={[<ViewReply />]} />
-          
-          {/* Bunglow */}
+
+          {/* Event */}
           <Route path="/event" element={[<Header />, <BunglowandSafari />]} />
-          <Route path="/eventdisplay" element={[<Header />, <AllEvents/>]} />
+          <Route path="/eventdisplay" element={[<Header />, <AllEvents />]} />
           <Route path="/eventcreate" element={[<Header />, <ECreate />]} />
           <Route path="/eventedit/:id" element={[<Header />, <EEdit />]} />
+          <Route path="/ereport" element={[<Header />, <EReport />]} />
 
           {/* Safari */}
-          <Route path="/safaridisplay" element={[<Header />, <Allsafarijeeps/>]} />
+          <Route
+            path="/safaridisplay"
+            element={[<Header />, <Allsafarijeeps />]}
+          />
           <Route path="/safaricreate" element={[<Header />, <SCreate />]} />
           <Route path="/safariedit/:id" element={[<Header />, <SEdit />]} />
         </Routes>
